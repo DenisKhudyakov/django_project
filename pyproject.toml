@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "django-project"
+version = "0.1.0"
+description = ""
+authors = ["Denis Khudyakov <denis.hudyakov27@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+setuptools = "^69.1.1"
+
+
+[tool.poetry.group.lint.dependencies]
+black = "^24.2.0"
+flake8 = "^7.0.0"
+isort = "^5.13.2"
+mypy = "^1.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
