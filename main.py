@@ -3,20 +3,22 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 hostName = "localhost"
 serverPort = 8080
 
+
 class MyServer(BaseHTTPRequestHandler):
     """
-        Специальный класс, который отвечает за
-        обработку входящих запросов от клиентов
+    Специальный класс, который отвечает за
+    обработку входящих запросов от клиентов
 
     """
+
     @staticmethod
-    def __get_html_page():
-        with open('index.html', encoding='UTF-8') as f:
+    def __get_html_page() -> str:
+        with open("index.html", encoding="UTF-8") as f:
             page = f.read()
         return page
 
-    def do_GET(self):
-        """ Метод для обработки входящих GET-запросов """
+    def do_GET(self) -> None:
+        """Метод для обработки входящих GET-запросов"""
         page_content = self.__get_html_page()
         self.send_response(200)
         self.send_header("Content-type", "text/html")
