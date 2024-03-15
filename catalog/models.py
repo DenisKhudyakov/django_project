@@ -13,7 +13,7 @@ class Product(models.Model):
     date_of_the_last_change = models.DateField(verbose_name='дата последнего изменения')
 
     def __str__(self):
-        return f'{self.__class__.__name__}'
+        return f'{self.name} - {self.price}'
 
     class Meta:
         verbose_name = 'продукт'
@@ -21,9 +21,11 @@ class Product(models.Model):
 
 
 class Category(models.Model):
+    name = models.CharField(max_length=50, verbose_name='наименование')
+    description = models.TextField(max_length=150, verbose_name='описание')
 
     def __str__(self):
-        return f'{self.__class__.__name__}'
+        return f'{self.name}, {self.description}'
 
     class Meta:
         verbose_name = 'категория'
