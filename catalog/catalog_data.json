@@ -1,0 +1,18 @@
+[
+{
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+        "name": "мясные изделия",
+        "description": "продукты питания животного происхождения"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+        "name": "Бытовая химия",
+        "description": "Чистящие средства для дома"
+    }
+}
+]
