@@ -3,8 +3,8 @@ from django import template
 register = template.Library()
 
 
-@register.filter
-def mymedia(data):
+@register.simple_tag()
+def images_tag(data):
     if data:
-        return f'/media/products/{data}'
+        return f'/media/{data}'
     return '#'
