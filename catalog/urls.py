@@ -9,4 +9,5 @@ urlpatterns = [
     path('', basket, name='basket'),
     path('contacts/', contacts, name='contacts'),
     path('card/<int:pk>/', card, name='card'),
+
 ]
