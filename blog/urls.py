@@ -8,8 +8,8 @@ app_name = BlogConfig.name
 urlpatterns = [
     path('create/', BlogCreateView.as_view(), name='product'),
     path('view/', BlogListView.as_view(), name='list'),
-    path('view/<int:pk>/', ..., name='view'),
-    path('edit/<int:pk>/', ..., name='edit'),
-    path('delete/<int:pk>/', ..., name='delete'),
+    # path('view/<int:pk>/', ..., name='view'),
+    # path('edit/<int:pk>/', ..., name='edit'),
+    # path('delete/<int:pk>/', ..., name='delete'),
 
 ]

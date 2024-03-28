@@ -7,7 +7,7 @@ class Blog(models.Model):
 
     title = models.CharField(max_length=50, verbose_name='заголовок')
     slug = models.CharField(max_length=50, verbose_name='URL')
-    content = models.TextField(verbose_name='содержимое')
+    content = models.TextField(verbose_name='содержимое', **NULL_PARAM)
     preview = models.ImageField(upload_to='blog/', verbose_name='превью', **NULL_PARAM)
     date_created = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
     publication = models.BooleanField(default=True, verbose_name='факт публикации')

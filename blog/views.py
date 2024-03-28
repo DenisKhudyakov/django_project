@@ -6,6 +6,8 @@ from blog.models import Blog
 
 class BlogCreateView(CreateView):
     model = Blog
+    fields = ('title', 'content', 'preview')
+
 
 
 class BlogListView(ListView):
