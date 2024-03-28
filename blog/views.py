@@ -9,6 +9,5 @@ class BlogCreateView(CreateView):
     fields = ('title', 'content', 'preview')
 
 
-
 class BlogListView(ListView):
     model = Blog
