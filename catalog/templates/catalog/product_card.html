@@ -1,0 +1,11 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+{% load castom_tags %}
+    <div class="card-body">
+        <h1 class="card-title pricing-card-title">{{ products.name }}</h1>
+            <li>
+                {{ products.description | truncatechars:100 }}
+                <img class="card-img-top" src="{% images_tag products.image %}" alt="Здесь должно быть изображение">
+            </li>
+    </div>
+{% endblock %}
