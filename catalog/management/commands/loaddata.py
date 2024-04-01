@@ -26,7 +26,7 @@ class Command(BaseCommand):
         category_for_create: list = []
 
         # Обходим все значения категорий из фиктсуры для получения информации об одном объекте
-        for category in Command.json_read_categories('catalog/catalog_data.json'):
+        for category in Command.json_read_categories('blog/catalog_data.json'):
             category_for_create.append(
                 Category(name=category['fields']['name'],description=category['fields']['description'])
             )
