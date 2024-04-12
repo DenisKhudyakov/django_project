@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm
 from catalog.models import Product, Version
 
 
@@ -15,12 +15,18 @@ class ContactsView(TemplateView):
 
 class ProductListView(ListView):
     model = Product
-    context_object_name = 'products'
 
     def get_context_data(self,*args, **kwargs):
-        context_data = super().get_context_data(**kwargs)
-        context_data['version_list'] = Version.objects.get_queryset()
-            
+        context_data = super().get_context_data(*args, **kwargs)
+        products = Product.objects.all()
+
+        for product in products:
+            versions = Version.objects.filter(product=product)
+            active_versions = versions.filter(current_version=True)
+            if active_versions:
+                product.name_version = active_versions.last().name
+                product.number_version = active_versions.last().number
+        context_data['object_list'] = products
         return context_data
 
 
