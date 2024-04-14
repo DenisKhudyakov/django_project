@@ -7,6 +7,12 @@
                 {{ products.description | truncatechars:100 }}
                 <img class="card-img-top" src="{% images_tag products.image %}" alt="Здесь должно быть изображение">
             </li>
-        <a type="button" href="{% url 'catalog:version_create' pk=object.pk %}" class="btn btn-lg btn-block btn-outline-primary">Добавить версию продукта</a>
+        <div class="btn-group">
+            <a type="button" href="{% url 'catalog:version_create' %}" class="btn btn-lg btn-block btn-outline-primary">Добавить версию продукта</a>
+            {% if products.versions.exists %}
+                <a type="button" href="{% url 'catalog:version_detail' pk=object.pk %}" class="btn btn-lg btn-block btn-outline-primary">Просмотр версии</a>
+                <a type="button" href="{% url 'catalog:version_update' pk=object.pk %}" class="btn btn-lg btn-block btn-outline-primary">Обновление версии</a>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}

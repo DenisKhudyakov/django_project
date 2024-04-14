@@ -50,7 +50,21 @@ class ProductUpdateView(UpdateView):
 class VersionCreateView(CreateView):
     model = Version
     form_class = VersionForm
-    success_url = reverse_lazy('catalog:product')
+    success_url = reverse_lazy('catalog:products')
+
+
+class VersionUpdateView(UpdateView):
+    model = Version
+    form_class = VersionForm
+    success_url = reverse_lazy('catalog:products')
+
+
+class VersionDetailView(DetailView):
+    model = Version
+    context_object_name = 'versions'
+
+
+
 
 
 
