@@ -47,6 +47,24 @@ class ProductUpdateView(UpdateView):
     success_url = reverse_lazy('catalog:products')
 
 
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:products')
+
+
+class VersionListView(ListView):
+    model = Version
+
+    # def get_queryset(self, *args, **kwargs):
+        # queryset = Version.objects.all()
+        # products = Product.objects.all()
+        # for product in products:
+        #     print(product)
+        #     versions = Version.objects.filter(product=product)
+        #     print(queryset.product == product)
+        #     return versions
+
+
 class VersionCreateView(CreateView):
     model = Version
     form_class = VersionForm
@@ -62,6 +80,11 @@ class VersionUpdateView(UpdateView):
 class VersionDetailView(DetailView):
     model = Version
     context_object_name = 'versions'
+
+
+class VersionDeleteView(DeleteView):
+    model = Version
+    success_url = reverse_lazy('catalog:versions')
 
 
 
