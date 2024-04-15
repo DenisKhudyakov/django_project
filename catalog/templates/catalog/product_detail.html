@@ -10,7 +10,7 @@
         <div class="btn-group">
             <a type="button" href="{% url 'catalog:version_create' %}" class="btn btn-lg btn-block btn-outline-primary">Добавить версию продукта</a>
             {% if products.versions.exists %}
-                <a type="button" href="{% url 'catalog:versions' %}" class="btn btn-lg btn-block btn-outline-primary">Просмотр версий</a>
+                <a type="button" href="{% url 'catalog:versions' pk=object.pk %}" class="btn btn-lg btn-block btn-outline-primary">Просмотр версий</a>
             {% endif %}
         </div>
     </div>

@@ -55,7 +55,7 @@ class ProductDeleteView(DeleteView):
 class VersionListView(ListView):
     model = Version
 
-    # def get_queryset(self, *args, **kwargs):
+    def get_queryset(self, *args, **kwargs):
         # queryset = Version.objects.all()
         # products = Product.objects.all()
         # for product in products:
@@ -63,6 +63,7 @@ class VersionListView(ListView):
         #     versions = Version.objects.filter(product=product)
         #     print(queryset.product == product)
         #     return versions
+        return Version.objects.filter(product=Product.objects.get(pk=self.kwargs.get('pk')))
 
 
 class VersionCreateView(CreateView):
