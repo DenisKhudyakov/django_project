@@ -1,0 +1,17 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+{% load castom_tags %}
+    <div class="card-body">
+        <h1 class="card-title pricing-card-title">{{ products.name }}</h1>
+            <li>
+                {{ products.description | truncatechars:100 }}
+                <img class="card-img-top" src="{% images_tag products.image %}" alt="Здесь должно быть изображение" style="max-width: 250px; max-height: 250px;">
+            </li>
+        <div class="btn-group">
+            <a type="button" href="{% url 'catalog:version_create' %}" class="btn btn-lg btn-block btn-outline-primary">Добавить версию продукта</a>
+            {% if products.versions.exists %}
+                <a type="button" href="{% url 'catalog:versions' pk=object.pk %}" class="btn btn-lg btn-block btn-outline-primary">Просмотр версий</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
