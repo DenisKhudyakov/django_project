@@ -1,5 +1,7 @@
 from django.db import models
 
+from config import settings
+
 NULL_PARAM = {'null': True, 'blank': True}
 
 
@@ -24,6 +26,8 @@ class Product(models.Model):
     created_at = models.DateField(auto_now_add=True, verbose_name='дата создания')
     updated_at = models.DateField(auto_now=True, verbose_name='дата последнего изменения')
     # manufactured_at = models.DateField(verbose_name='Дата производства продукта', **NULL_PARAM)
+
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.SET_NULL, **NULL_PARAM, verbose_name='продавец')
 
     def __str__(self):
         return f'{self.name} - {self.price}'

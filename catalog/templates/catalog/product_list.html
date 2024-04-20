@@ -6,11 +6,14 @@
         <div class="col-4">
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
-                    <p>{{ object.name }}</p>
+                    <h3>{{ object.name }}</h3>
                 <div class="card-body">
-                    <h1 class="card-title pricing-card-title">{{ object.price }}</h1>
+                    <li class="card-title pricing-card-title">Цена {{ object.price }}</li>
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                        <li>{{ object.description | truncatechars:100 }} </li>
+                        <li>Описание: {{ object.description | truncatechars:100 }} </li>
+
+                        <li> Почта продавца: {{ object.owner | default:"Нет продавца" }} </li>
+
                     </ul>
                     </div>
                     <div>

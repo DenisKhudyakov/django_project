@@ -1,6 +1,7 @@
 import secrets
 import random
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.hashers import make_password
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect
@@ -41,7 +42,8 @@ def email_verification(request, token):
     user.save()
     return redirect(reverse("users:login"))
 
-class UserUpdateView(UpdateView):
+
+class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = UserForm
     success_url = reverse_lazy('catalog:products')
