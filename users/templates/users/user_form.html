@@ -18,9 +18,11 @@
                             </button>
                         </form>
                     </div>
+                {% if user.is_authenticated %}
                 <div class="card-footer">
-                    <a href="{% url 'users:generate_new_password' %}" class="btn btn-outline-danger">Сгенерировать новый пароль</a>
+                    <a href="{% url 'users:generate_new_password' %}" class="btn btn-outline-danger">Изменить пароль</a>
                 </div>
+                {% endif %}
                 </div>
             </div>
         </div>
