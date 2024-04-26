@@ -25,6 +25,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='цена в руб')
     created_at = models.DateField(auto_now_add=True, verbose_name='дата создания')
     updated_at = models.DateField(auto_now=True, verbose_name='дата последнего изменения')
+    is_published = models.BooleanField(default=True, verbose_name='Опубликовано')
     # manufactured_at = models.DateField(verbose_name='Дата производства продукта', **NULL_PARAM)
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.SET_NULL, **NULL_PARAM, verbose_name='продавец')
@@ -35,6 +36,20 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
+        permissions = [
+            (
+                'set_published_product',
+                'Can set published product'
+            ),
+            (
+                'change_description_product',
+                'Can change description product'
+            ),
+            (
+                'change_category',
+                'Can change category'
+            ),
+        ]
 
 
 class Version(models.Model):

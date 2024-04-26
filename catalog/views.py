@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
 from catalog.models import Product, Version
 
 
@@ -52,6 +52,13 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:products')
+
+    def get_form_class(self):
+        user = self.request.user
+        if user.groups.filter(name='moderator').exists():
+            return ProductModeratorForm
+        else:
+            return ProductForm
 
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
