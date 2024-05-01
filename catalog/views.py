@@ -3,7 +3,8 @@ from django.views.generic import ListView, DetailView, TemplateView, CreateView,
 from django.urls import reverse_lazy
 
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
+from catalog.services import get_categories_from_cache
 
 
 class ContactsView(TemplateView):
@@ -12,6 +13,13 @@ class ContactsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+class CategoryListView(ListView):
+    model = Category
+
+    def get_queryset(self):
+        return get_categories_from_cache()
 
 
 class ProductListView(ListView):
