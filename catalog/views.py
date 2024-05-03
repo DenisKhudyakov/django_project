@@ -1,8 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from catalog.forms import ProductForm, VersionForm
-from catalog.models import Product, Version
+from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
+from catalog.models import Product, Version, Category
+from catalog.services import get_categories_from_cache
 
 
 class ContactsView(TemplateView):
@@ -11,6 +13,13 @@ class ContactsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+class CategoryListView(ListView):
+    model = Category
+
+    def get_queryset(self):
+        return get_categories_from_cache()
 
 
 class ProductListView(ListView):
@@ -30,29 +39,42 @@ class ProductListView(ListView):
         return context_data
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     context_object_name = 'products'
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:products')
 
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.owner = self.request.user
+        self.object.save()
+        return super().form_valid(form)
 
-class ProductUpdateView(UpdateView):
+
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:products')
 
+    def get_form_class(self):
+        user = self.request.user
+        if user.groups.filter(name='moderator').exists():
+            return ProductModeratorForm
+        else:
+            return ProductForm
 
-class ProductDeleteView(DeleteView):
+
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:products')
 
 
-class VersionListView(ListView):
+class VersionListView(LoginRequiredMixin, ListView):
     model = Version
 
     def get_queryset(self, *args, **kwargs):
@@ -66,24 +88,24 @@ class VersionListView(ListView):
         return Version.objects.filter(product=Product.objects.get(pk=self.kwargs.get('pk')))
 
 
-class VersionCreateView(CreateView):
+class VersionCreateView(LoginRequiredMixin, CreateView):
     model = Version
     form_class = VersionForm
     success_url = reverse_lazy('catalog:products')
 
 
-class VersionUpdateView(UpdateView):
+class VersionUpdateView(LoginRequiredMixin, UpdateView):
     model = Version
     form_class = VersionForm
     success_url = reverse_lazy('catalog:products')
 
 
-class VersionDetailView(DetailView):
+class VersionDetailView(LoginRequiredMixin, DetailView):
     model = Version
     context_object_name = 'versions'
 
 
-class VersionDeleteView(DeleteView):
+class VersionDeleteView(LoginRequiredMixin, DeleteView):
     model = Version
     success_url = reverse_lazy('catalog:versions')
 

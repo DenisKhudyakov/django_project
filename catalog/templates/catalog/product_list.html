@@ -6,11 +6,14 @@
         <div class="col-4">
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
-                    <p>{{ object.name }}</p>
+                    <h3>{{ object.name }}</h3>
                 <div class="card-body">
-                    <h1 class="card-title pricing-card-title">{{ object.price }}</h1>
+                    <li class="card-title pricing-card-title">Цена {{ object.price }}</li>
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                        <li>{{ object.description | truncatechars:100 }} </li>
+                        <li>Описание: {{ object.description | truncatechars:100 }} </li>
+
+                        <li> Почта продавца: {{ object.owner | default:"Нет продавца" }} </li>
+
                     </ul>
                     </div>
                     <div>
@@ -22,7 +25,9 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
                             <a href="{% url 'catalog:card' object.pk %}" class="btn btn-sm btn-outline-secondary">Просмотр</a>
-                            <a href="{% url 'catalog:product_update' object.pk %}" class="btn btn-sm btn-outline-secondary">Редактирование</a>
+                            {% if user.group == moderator or user == product.owner %}
+                                <a href="{% url 'catalog:product_update' object.pk %}" class="btn btn-sm btn-outline-secondary">Редактирование</a>
+                            {% endif %}
                             <a href="{% url 'catalog:product_delete' object.pk %}" class="btn btn-sm btn-outline-danger">Удаление</a>
                         </div>
                     </div>
